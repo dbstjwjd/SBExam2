@@ -9,21 +9,33 @@
 <div class="wrap">
     <div class="logo">logo</div>
     <div class="content-wrap">
+        <div class="side-notebook">
+            <ul>
+                <li th:each="noteBook : ${noteBookList}" th:class="${targetNoteBook.id == noteBook.id} ? 'selectedNote'">
+                    <a th:href="@{|/noteBook/select/${noteBook.id}|}" th:text="${noteBook.name}"></a>
+                </li>
+            </ul>
+            <div>
+                <form action="/noteBook/create" method="post">
+                    <input type="submit" value="추가">
+                </form>
+            </div>
+        </div>
         <div class="side-menu">
             <!--            3. 템플릿에서 게시물 목록 출력-->
             <ul>
-                <li th:each="post : ${postList}">
+                <li th:each="post : ${postList}" th:class="${targetPost.id == post.id} ? 'selected'">
                     <a th:href="@{|/detail/${post.id}|}" th:text="${post.title}"></a>
                 </li>
             </ul>
             <div>
-                <form action="/write" method="post">
+                <form th:action="@{|/write/${targetNoteBook.id}|}" method="post">
                     <input type="submit" value="추가">
                 </form>
             </div>
         </div>
         <div class="content">
-            <form action="/update" method="post">
+            <form method="post">
                 <div>
                     <input type="hidden" name="id" th:value="${targetPost.id}">
                 </div>
@@ -34,7 +46,10 @@
                     <textarea name="content" cols="30" rows="10" th:text="${targetPost.content}"></textarea>
                 </div>
                 <div>
-                    <input type="submit" value="수정">
+                    <input type="submit" value="수정" formaction="/update">
+                </div>
+                <div>
+                    <input type="submit" value="삭제" formaction="/delete">
                 </div>
             </form>
         </div>

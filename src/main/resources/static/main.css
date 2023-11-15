@@ -32,5 +32,19 @@ a{
 
 .content {
     background: lightseagreen;
-    width:90%;
+    width:80%;
+}
+
+.selected {
+    background:pink;
+}
+
+.side-notebook {
+    width:10%;
+    background:lightblue;
+    text-align: center;
+}
+
+.selectedNote {
+    background:skyblue;
 }
